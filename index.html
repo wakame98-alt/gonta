@@ -3,38 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test</title>
+  <title>Love Link</title>
   <script src="https://js.pusher.com/8.0/client-min.js"></script>
   <style>
     body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    img { max-width: 80%; cursor: pointer; }
-    #heart { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; display: none; }
+    img { max-width: 90%; max-height: 90%; border-radius: 15px; }
+    #heart { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; display: none; z-index: 10; }
   </style>
 </head>
-<body>
-
-  <img src="https://i.ibb.co/k2JLzxWQ/photo.jpg" id="photo" onclick="tapPhoto()">
+<body onclick="start()">
+  <img src="https://i.ibb.co/k2JLzxWQ/photo.jpg">
   <div id="heart">❤️</div>
-
   <script>
-    // ここをご自身のものに書き換えてください
     const PUSHER_KEY = '448ab44c897a99c4f707';
     const PUSHER_CLUSTER = 'ap3';
-
     const pusher = new Pusher(PUSHER_KEY, { cluster: PUSHER_CLUSTER });
-    const channel = pusher.subscribe('my-channel');
+    const channel = pusher.subscribe('love-channel'); // チャンネル名をシンプルに
 
-    channel.bind('my-event', function(data) {
-      const h = document.getElementById('heart');
-      h.style.display = 'block';
-      if (navigator.vibrate) navigator.vibrate(200);
-      setTimeout(() => { h.style.display = 'none'; }, 2000);
+    channel.bind('love-event', function(data) {
+      document.getElementById('heart').style.display = 'block';
+      if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
+      setTimeout(() => { document.getElementById('heart').style.display = 'none'; }, 2000);
     });
 
-    function tapPhoto() {
-      alert("写真をタップしました！");
-    }
+    function start() { alert("準備OK！"); }
   </script>
 </body>
 </html>
-
