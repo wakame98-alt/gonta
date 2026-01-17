@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘密のリアクション</title>
+    <style>
+        body { text-align: center; background: #222; color: white; font-family: sans-serif; margin: 0; overflow: hidden; }
+        .photo-container { 
+            position: relative; width: 100vw; height: 100vh; 
+            background: url('photo.jpg') no-repeat center center; 
+            background-size: contain;
+        }
+        /* 反応する場所の設定（完成版なので透明 0 にしました） */
+        .touch-area { 
+            position: absolute; 
+            background: rgba(255, 0, 0, 0); 
+            cursor: pointer;
+        }
+        /* 吹き出しの設定 */
+        #fukidashi {
+            position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 15px 25px;
+            border-radius: 30px; font-weight: bold; font-size: 1.2rem;
+            display: none; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        #fukidashi::after {
+            content: ""; position: absolute; bottom: -10px; left: 50%;
+            border-width: 10px 10px 0; border-style: solid; border-color: white transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="fukidashi"></div>
+
+    <div class="photo-container">
+        <div class="touch-area" style="top:10%; left:30%; width:40%; height:15%;" onclick="action('なでなで、うれしい…', 100)"></div>
+        <div class="touch-area" style="top:35%; left:25%; width:50%; height:20%;" onclick="action('あ…っ、そこは…っ', 400)"></div>
+        <div class="touch-area" style="top:60%; left:30%; width:40%; height:15%;" onclick="action('そんなに触られたら…', 600)"></div>
+        <div class="touch-area" style="top:80%; left:35%; width:30%; height:15%;" onclick="action('いっちゃうよ', 800)"></div>
+    </div>
+
+    <script>
+        function action(message, vibeTime) {
+            // バイブ（スマホで触ったときに震えます）
+            if (navigator.vibrate) { navigator.vibrate(vibeTime); }
+            // 吹き出し表示
+            const fuki = document.getElementById('fukidashi');
+            fuki.innerText = message;
+            fuki.style.display = 'block';
+            // 2秒後に消す
+            setTimeout(() => { fuki.style.display = 'none'; }, 2000);
+        }
+    </script>
+</body>
+</html>
