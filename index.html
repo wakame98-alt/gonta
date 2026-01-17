@@ -46,6 +46,7 @@
             // バイブ（スマホで触ったときに震えます）
             if (navigator.vibrate) { navigator.vibrate(vibeTime); }
             // 吹き出し表示
+            window.navigator.vibrate(200);
             const fuki = document.getElementById('fukidashi');
             fuki.innerText = message;
             fuki.style.display = 'block';
@@ -54,4 +55,5 @@
         }
     </script>
 </body>
+
 </html>
